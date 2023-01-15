@@ -1,23 +1,13 @@
-apiVersion: apps/v1
-kind: ReplicaSet
+apiVersion: v1
+kind: Service
 metadata:
-  name: nginx-replicaset
+  name: image-processing
   labels:
-    app: nginx
+    app: myapp
 spec:
-  replicas: 3
+  type: ClusterIP
   selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      name: nginx
-      labels:
-        app: nginx
-        name: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx
-        ports:
-          - containerPort: 80
+    app: myapp
+  ports:
+  - port: 8080
+    targetPort: 80

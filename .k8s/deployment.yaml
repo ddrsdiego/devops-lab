@@ -4,19 +4,19 @@ metadata:
   name: devopslab-deploy
 spec:
   replicas: 3
-  selector:
-    matchLabels:
-      app: devopslab-deploy
   template:
     metadata:
       labels:
-        app: devopslab-deploy
+        app: devopslab-pod
     spec:
       containers:
-      - name: devopslab-deploy
+      - name: devopslab-pod
         image: ddrsdiego/devopslab:latest
         ports:
         - containerPort: 80
         env:
         - name: ASPNETCORE_URLS
           value: http://*:80
+  selector:
+    matchLabels:
+      app: devopslab-pod
