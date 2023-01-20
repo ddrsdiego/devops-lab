@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devopslab-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: devopslab-pod
+      labels:
+        name: devopslab-pod
+        app: devopslab
+        tier: backend
+    spec:
+      containers:
+      - name: devopslab-pod
+        image: ddrsdiego/devopslab:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 80
+        env:
+          - name: ASPNETCORE_URLS
+            value: http://*:80
+  selector:
+    matchLabels:
+        name: devopslab-pod
+        app: devopslab
